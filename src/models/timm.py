@@ -21,11 +21,11 @@ class TimmModel(pl.LightningModule):
         self.f_score = torchmetrics.F1Score(task = 'multiclass', num_classes=num_classes, average='macro')
 
     def forward(self, x):
-        x = self.model.forward(x.unsqueeze(dim = 0))
+        x = self.model.forward(x)
         return x
 
     def training_step(self, batch, batch_idx):
-        images, target = batch[0], batch[1]
+        images, target = batch[0], batch[1].long()
         logits = self.forward(images)
         loss = self.loss(logits, target)
 
@@ -39,7 +39,7 @@ class TimmModel(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        images, target = batch[0], batch[1]
+        images, target = batch[0], batch[1].long()
         logits = self.forward(images)
         loss = self.loss(logits, target)
 
@@ -53,7 +53,7 @@ class TimmModel(pl.LightningModule):
         return loss
 
     def test_step(self, batch, batch_idx):
-        images, target = batch[0], batch[1]
+        images, target = batch[0], batch[1].long()
         logits = self.forward(images)
         loss = self.loss(logits, target)
 
