@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 import os
 import numpy as np
-
+#librosa offset en el load
 
 class BirdDataset(Dataset):
     '''
