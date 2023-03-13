@@ -1,0 +1,10 @@
+data/
+src/__pycache__
+__azurite_db_table__.json
+src/callbacks/__pycache__
+src/checkpoints
+src/data_models/__pycache__
+src/models/__pycache__
+src/models/__azurite_db_table__
+src/wandb
+src/DL_train_validation_pipeline.ipynb

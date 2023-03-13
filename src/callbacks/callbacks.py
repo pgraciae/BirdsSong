@@ -26,4 +26,7 @@ class ImagePredictionLogger(pl.Callback):
                                                    preds[:self.max_num_samples],
                                                    val_labels[:self.max_num_samples])
                             ]
+                , "conf_mat" : wandb.plot.confusion_matrix(probs=None,
+                        y_true=val_labels, preds=preds,
+                        class_names=val_labels)
                 })
