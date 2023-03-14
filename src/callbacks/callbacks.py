@@ -20,6 +20,22 @@ class ImagePredictionLogger(pl.Callback):
             # Get model prediction
             logits = pl_module(val_images)
             preds = torch.argmax(logits, -1)
+            '''
+            ### Get all test data
+            test_images, test_labels = next(iter(trainer.datamodule.test_dataloader()))
+            test_images = test_images.to(device=pl_module.device)
+            test_labels = test_labels.to(device=pl_module.device)
+            test_logits = pl_module(test_images)
+            test_preds = torch.argmax(test_logits,-1)
+            del test_images
+
+            for tensor, label in trainer.datamodule.test_dataloader():
+                tensor = tensor.to(device=pl_module.device)
+                label = label.to(device=pl_module.device)
+
+                tmp_logits = pl_module(tensor)
+                tmp_preds = torch.argmax(tmp_logits, -1)
+            '''
             # Log the images as wandb Image
             trainer.logger.experiment.log({
                 "examples": [wandb.Image(x, caption=f"Pred:{pred}, Label:{y}")

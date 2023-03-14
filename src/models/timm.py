@@ -60,8 +60,11 @@ class TimmModel(pl.LightningModule):
         # test metrics
         preds = torch.argmax(logits, dim=1)
         acc = self.accuracy(preds, target)
-        self.log('test_loss', loss, prog_bar=True)
-        self.log('test_acc', acc, prog_bar=True)
+        f_score = self.f_score(preds, target)
+        self.log('test_loss', loss, on_step = True, logger=True, prog_bar=True)
+        self.log('test_acc', acc, on_epoch = True, logger=True, prog_bar=True)
+        self.log('test_f_score', f_score, on_epoch=True, logger=True)
+
         return loss
 
     def configure_optimizers(self):
